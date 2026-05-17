@@ -26,7 +26,7 @@ description: SSDSE-C-2026 (総務省 教育用標準データセット・都市�
 
 ## CLI の使い方（このスキルの中で実行する）
 
-すべて以下のパスの CLI を `uv run <CLI_PATH> <subcommand>` の形で実行する (`python3` ではなく **uv run** を使うこと)。CSV パスは既定で同じディレクトリの `SSDSE-C-2026.csv` を参照するため、`--csv` の指定は基本不要。
+すべて以下のパスの CLI を `python3 <CLI_PATH> <subcommand>` の形で実行する (`uv run` ではなく **python3** を使うこと)。CSV パスは既定で同じディレクトリの `SSDSE-C-2026.csv` を参照するため、`--csv` の指定は基本不要。
 
 ```
 CLI_PATH=/home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py
@@ -47,21 +47,21 @@ CLI_PATH=/home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py
 
 ### A. 「○○の消費 (支出) が多い都市は?」「○○の都市ランキングを教えて」
 ```bash
-uv run ssdse_cli.py rank "<品目>" --top 10
+python3 ssdse_cli.py rank "<品目>" --top 10
 ```
 **下位** を聞かれたら `--bottom` を付ける。
 品目が曖昧 (例: 「お酒」) の場合は先に `search` で候補を一覧してから、どれを見たいか確認。
 
 ### B. 「A市とB市 (とC市) を比較して」
 ```bash
-uv run ssdse_cli.py compare "A市" "B市" "C市"
+python3 ssdse_cli.py compare "A市" "B市" "C市"
 ```
 特定品目だけ比較したいときは `--items 牛肉 豚肉 鶏肉` のように追加。
 省略時は **大分類** (穀類・魚介類・肉類… の 12 分類 + 食料合計) で出る。
 
 ### C. 「○○市の食生活の特徴は?」「○○市のプロファイルを出して」
 ```bash
-uv run ssdse_cli.py profile "○○市" --top 10
+python3 ssdse_cli.py profile "○○市" --top 10
 ```
 このコマンドは
 1. 世帯人員と食料合計
@@ -73,7 +73,7 @@ uv run ssdse_cli.py profile "○○市" --top 10
 
 ### D. 「○○に関係する品目を全部教えて」
 ```bash
-uv run ssdse_cli.py search "<キーワード>"
+python3 ssdse_cli.py search "<キーワード>"
 ```
 例: `search 肉` → 牛肉/豚肉/鶏肉/ハム/ソーセージ等が一覧される。これを起点に rank / compare に繋げる。
 
@@ -98,10 +98,10 @@ uv run ssdse_cli.py search "<キーワード>"
 ## 動作確認用クイックコマンド
 
 ```bash
-uv run /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py search 米
-uv run /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py rank 牛肉 --top 5
-uv run /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py compare 札幌市 那覇市 京都市
-uv run /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py profile 京都市 --top 5
+python3 /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py search 米
+python3 /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py rank 牛肉 --top 5
+python3 /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py compare 札幌市 那覇市 京都市
+python3 /home/ubuntu/environment/.claude/skills/ssdse-c-bunseki/ssdse_cli.py profile 京都市 --top 5
 ```
 
 ## このスキルの守備範囲外
